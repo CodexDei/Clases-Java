@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 
-public class Automovil {
+public class Automovil implements Comparable {
 
     //Atributos No estaticos
     private int idAutomovil;
     private TipoAutomovil tipo;
     private String marca;
-    private int modelo;
+    private Integer modelo;
     private int precio;
     private Color color;
     private Motor motor;
@@ -75,6 +75,12 @@ public class Automovil {
         this.velocidad = velocidad;
         this.rendimiento = rendimiento;
         this.transmision = transmision;
+    }
+    public Automovil(String marca, int modelo){
+
+        this();
+        this.marca = marca;
+        this.modelo = modelo;
     }
 
     //getters and Setters
@@ -254,43 +260,6 @@ public class Automovil {
         return (this.marca.equals(a.getMarca()) && this.velocidad == a.getVelocidad());
     }
 
-    @Override
-    public String toString() {
-
-
-        String impresion;
-
-        impresion =
-                "Automovil{" + "\n" +
-                "idAutomovil=" + idAutomovil + "\n" +
-                "tipo=" + tipo + "\n" +
-                "marca='" + marca + '\'' + "\n" +
-                "modelo=" + modelo + "\n" +
-                "precio=" + precio + "\n" +
-                "color=" + color + "\n" +
-                "Tipo de Motor =" + motor.getTipo() + "\n" +
-                "Cilindraje =" + motor.getCilindraje() + "\n" +
-                "tanque=" + tanque.getCapacidad() + "\n" +
-                "conductor=" + conductor + "\n" +
-                "Ruedas:\n";
-
-                    if (ruedas != null){
-
-                        for (Rueda rueda : ruedas){
-
-                            impresion += rueda.getFabricante() +
-                                    ", Aro: " + rueda.getAro() + "''" +
-                                    ", ancho: " + rueda.getAncho() + " mm" + "\n";
-                        }
-                    }
-
-                impresion += "velocidad=" + velocidad + "\n" +
-                "rendimiento=" + rendimiento + "\n" +
-                "transmision='" + transmision + '\'' + "\n" +
-                '}';
-
-                return impresion;
-    }
 
     public static void evaluarVelocidadCarretera(int velocidad){
 
@@ -339,5 +308,23 @@ public class Automovil {
                     "CUIDADO, baje la velocidad ahora mismo, recuerde la velocidad maxima en la ciudad es de: " +
                             VELOCIDAD_MAX_CIUDAD + "Km/h","PELIGRO",JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    //El siguiente metodo de usa implementando la interfaz comparable
+    //el metodo compareTo nos permite modificarlo para que compare con el atributo que queramos
+    @Override
+    public int compareTo(Object o) {
+
+        Automovil a = (Automovil) o;
+        return this.marca.compareTo(a.marca);
+    }
+
+    @Override
+    public String toString() {
+        return "Automovil{" +
+                "idAutomovil=" + idAutomovil +
+                ", marca='" + marca + '\'' +
+                ", modelo=" + modelo +
+                '}';
     }
 }
